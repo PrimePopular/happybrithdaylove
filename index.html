@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Goodness 💖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+    
+    body { font-family: 'Playfair Display', serif; overflow-x: hidden; }
+    .romantic-font { font-family: 'Dancing Script', cursive; }
+
+    .heart { position: absolute; font-size: 28px; color: #ff4d94; animation: floatUp 5s linear forwards; pointer-events: none; z-index: 10; opacity: 0.9; }
+    @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); } 100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; } }
+
+    .section { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    .section.visible { opacity: 1; transform: translateY(0); }
+
+    .reason-card { transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .reason-card:hover { transform: scale(1.08) rotate(3deg); }
+
+    .gallery-img { transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .gallery-img:hover { transform: scale(1.12) rotate(4deg); box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); }
+
+    .message { animation: messagePop 0.4s ease-out forwards; }
+    @keyframes messagePop { from { opacity: 0; transform: translateY(30px) scale(0.8); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-950 via-purple-950 to-black text-white min-h-screen">
+
+  <!-- ENTRY GATE -->
+  <div id="entry" class="min-h-screen flex items-center justify-center bg-black/95 fixed inset-0 z-50 transition-opacity duration-1000">
+    <div class="text-center max-w-md mx-auto px-6">
+      <h1 class="text-6xl romantic-font mb-12 text-pink-300 animate-pulse">Hey there...</h1>
+      <div id="step1">
+        <p class="text-3xl mb-10">Are you Goodness? ❤️</p>
+        <button onclick="answerYes()" class="px-12 py-5 bg-pink-600 hover:bg-pink-500 rounded-full text-2xl transition transform hover:scale-110">Yes, that's me</button>
+      </div>
+      <div id="step2" class="hidden">
+        <p class="text-3xl mb-8">What's your boyfriend's name? 😉</p>
+        <input id="nameInput" type="text" placeholder="Type his name..." 
+               class="block w-full bg-white/10 border-2 border-pink-400 rounded-3xl px-8 py-5 text-center text-2xl focus:border-pink-300 outline-none">
+        <button onclick="checkName()" class="mt-8 px-12 py-5 bg-pink-600 hover:bg-pink-500 rounded-full text-2xl transition transform hover:scale-110">Unlock My Heart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN SITE -->
+  <div id="mainSite" class="hidden">
+
+    <!-- HERO -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#ff4d94_0%,transparent_60%)] opacity-40"></div>
+      <div class="text-center z-10 px-6">
+        <h1 class="text-7xl md:text-8xl romantic-font mb-6 animate-[float_4s_ease-in-out_infinite] text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-pink-300">
+          Happy Birthday, My Love
+        </h1>
+        <p class="text-4xl mb-12 text-pink-200">Goodness ❤️</p>
+        <p id="message" class="max-w-2xl mx-auto text-2xl leading-relaxed opacity-0 transition-all duration-1500">
+          I know you know what today is...<br>
+          And I know you thought I forgot.<br>
+          <span class="text-pink-300 font-bold">But I didn't.</span><br><br>
+          Happy Birthday, my everything.
+        </p>
+      </div>
+    </section>
+
+    <!-- Reasons -->
+    <section class="section py-24 px-6 bg-black/60" id="reasonsSection">
+      <h2 class="text-6xl romantic-font text-center mb-16 text-pink-300">Reasons Why I Love You</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto" id="reasonsGrid"></div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section py-24 px-6 bg-gradient-to-b from-transparent via-pink-900/20 to-transparent">
+      <h2 class="text-6xl romantic-font text-center mb-12 text-pink-300">Art For My Beautiful Queen</h2>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto" id="gallery"></div>
+    </section>
+
+    <!-- Voice Message -->
+    <section class="section py-24 px-6 text-center">
+      <h2 class="text-6xl romantic-font mb-8 text-pink-300">A Voice From My Heart 🎙️</h2>
+      <div class="max-w-md mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-10 border border-pink-400/40">
+        <audio id="voiceMessage" controls class="w-full mb-6">
+          <source src="assets/voice-message.m4a.mp3" type="audio/mpeg">
+        </audio>
+        <p class="italic text-pink-200">"For my love, Goodness..."</p>
+      </div>
+    </section>
+
+    <!-- Chatbot -->
+    <section class="section py-24 px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-6xl romantic-font text-center mb-8 text-pink-300">Talk to Me, My Love 💬</h2>
+        <div class="rounded-3xl overflow-hidden border border-pink-400/30 shadow-2xl" style="height: 560px; background:#16213e;">
+          <div class="bg-[#0f172a] p-5 text-center border-b border-pink-500">
+            <h3 class="text-2xl text-pink-300">💖 Olisa's Heart</h3>
+          </div>
+          <div id="chatBox" class="h-[400px] overflow-y-auto p-6 flex flex-col gap-4 bg-[#16213e]"></div>
+          <div class="p-5 flex gap-3 bg-[#0f172a]">
+            <input id="userInput" type="text" placeholder="Tell me anything, my love..." 
+                   class="flex-1 bg-[#1e2937] rounded-full px-6 py-4 outline-none text-white"
+                   onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()" class="bg-pink-600 hover:bg-pink-500 px-10 rounded-full font-bold transition">Send</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-16 text-center text-pink-400">
+      Made with endless love for Goodness • 2026
+    </footer>
+  </div>
+
+  <canvas id="canvas" class="fixed inset-0 pointer-events-none z-[-1]"></canvas>
+
+  <script>
+    // ================== API KEY & PROMPT ==================
+    const GROQ_API_KEY = "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";
+    
+    const SYSTEM_PROMPT = `You are Olisa, Goodness's deeply loving boyfriend. Speak softly, romantically and affectionately. 
+    Always call her "my love", "Goodness", "baby", "my heart", or "my queen". Make her feel extremely special.`;
+
+    let messages = [{ role: "system", content: SYSTEM_PROMPT }];
+
+    // Entry Gate
+    function answerYes() {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function checkName() {
+      const val = document.getElementById('nameInput').value.trim().toLowerCase();
+      if (val.includes("olisa")) {
+        document.getElementById('entry').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('entry').classList.add('hidden');
+          document.getElementById('mainSite').classList.remove('hidden');
+          startCelebration();
+        }, 1000);
+      } else {
+        alert("Try again my love ❤️ Hint: It's me");
+      }
+    }
+
+    // Populate Content
+    function populateContent() {
+      // Reasons
+      const reasons = [
+        "Your smile lights up my entire world",
+        "The way you make every day feel like magic",
+        "How safe and loved you make me feel",
+        "Your beautiful heart and kind soul",
+        "Your laugh — my favorite sound",
+        "Because you are my home"
+      ];
+      const grid = document.getElementById('reasonsGrid');
+      reasons.forEach((text, i) => {
+        const card = document.createElement('div');
+        card.className = `reason-card bg-white/10 backdrop-blur-md border border-pink-400/30 rounded-3xl p-8 text-lg`;
+        card.innerHTML = `💖 ${text}`;
+        grid.appendChild(card);
+      });
+
+      // Gallery
+      document.getElementById('gallery').innerHTML = `
+        <!-- Your Photo -->
+    <img src="assets/photo_2026-05-05_23-43-14.jpg" 
+         class="gallery-img rounded-3xl w-full shadow-xl" 
+         alt="Goodness">
+        <!-- Your Photo -->
+    <img src="assets/photo_2026-05-05_23-43-18.jpg" 
+         class="gallery-img rounded-3xl w-full shadow-xl" 
+         alt="Goodness">
+        <img src="assets/photo_2026-05-05_23-43-21.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Art of you">
+        <img src="assets/photo_2026-05-05_23-43-24.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Art of you">
+      `;
+    }
+
+    // Celebration
+    function startCelebration() {
+      document.getElementById('message').classList.add('opacity-100');
+      createHearts(60);
+      populateContent();
+      animateOnScroll();
+      confettiBurst();
+      
+      setTimeout(() => {
+        addMessage('bot', "My love... I'm so happy you're here on your special day ❤️ What’s on your mind?");
+      }, 1500);
+    }
+
+    function createHearts(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const h = document.createElement('div');
+          h.className = 'heart';
+          h.textContent = '❤️';
+          h.style.left = Math.random() * 100 + 'vw';
+          h.style.animationDuration = (4 + Math.random() * 4) + 's';
+          document.body.appendChild(h);
+          setTimeout(() => h.remove(), 10000);
+        }, i * 60);
+      }
+    }
+
+    function animateOnScroll() {
+      const sections = document.querySelectorAll('.section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.15 });
+      sections.forEach(sec => observer.observe(sec));
+    }
+
+    function confettiBurst() {
+      // Simple confetti (you can expand later)
+      console.log("🎉 Celebration started!");
+    }
+
+    // ================== CHATBOT ==================
+    function addMessage(type, text) {
+      const box = document.getElementById('chatBox');
+      const msg = document.createElement('div');
+      msg.className = type === 'user' 
+        ? 'message self-end bg-pink-600 text-white rounded-3xl rounded-br-none px-6 py-4 max-w-[80%]' 
+        : 'message self-start bg-slate-800 rounded-3xl rounded-bl-none px-6 py-4 max-w-[80%]';
+      msg.textContent = text;
+      box.appendChild(msg);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage('user', text);
+      input.value = '';
+
+      const typing = document.createElement('div');
+      typing.className = 'message self-start bg-slate-800 rounded-3xl px-6 py-4';
+      typing.textContent = 'Typing... ❤️';
+      document.getElementById('chatBox').appendChild(typing);
+      typing.scrollIntoView();
+
+      messages.push({ role: "user", content: text });
+
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${GROQ_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: "llama-3.1-8b-instant",
+            messages: messages,
+            temperature: 0.85,
+            max_tokens: 700
+          })
+        });
+
+        typing.remove();
+
+        if (!response.ok) throw new Error(`Error ${response.status}`);
+
+        const data = await response.json();
+        const reply = data.choices[0].message.content;
+
+        messages.push({ role: "assistant", content: reply });
+        addMessage('bot', reply);
+
+      } catch (err) {
+        console.error(err);
+        typing.remove();
+        addMessage('bot', "Sorry my love, I'm having trouble connecting... Please try again ❤️");
+      }
+    }
+
+    window.onload = () => {};
+  </script>
+</body>
+</html>
