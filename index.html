@@ -15,7 +15,7 @@
     .heart { position: absolute; font-size: 28px; color: #ff4d94; animation: floatUp 5s linear forwards; pointer-events: none; z-index: 10; opacity: 0.9; }
     @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); } 100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; } }
 
-    .section { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    .section { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
     .section.visible { opacity: 1; transform: translateY(0); }
 
     .reason-card { transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -90,20 +90,20 @@
       </div>
     </section>
 
-    <!-- Chatbot -->
-    <section class="section py-24 px-6">
+    <!-- Chatbot - Improved for Mobile -->
+    <section class="section py-16 px-4 md:px-6">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-6xl romantic-font text-center mb-8 text-pink-300">Talk to Me, My Love 💬</h2>
-        <div class="rounded-3xl overflow-hidden border border-pink-400/30 shadow-2xl" style="height: 560px; background:#16213e;">
+        <div class="rounded-3xl overflow-hidden border border-pink-400/30 shadow-2xl bg-[#16213e] h-[520px] md:h-[560px] flex flex-col">
           <div class="bg-[#0f172a] p-5 text-center border-b border-pink-500">
             <h3 class="text-2xl text-pink-300">💖 Olisa's Heart</h3>
           </div>
-          <div id="chatBox" class="h-[400px] overflow-y-auto p-6 flex flex-col gap-4 bg-[#16213e]"></div>
-          <div class="p-5 flex gap-3 bg-[#0f172a]">
+          <div id="chatBox" class="flex-1 overflow-y-auto p-5 md:p-6 flex flex-col gap-4 bg-[#16213e]"></div>
+          <div class="p-4 md:p-5 bg-[#0f172a] flex gap-3 border-t border-pink-500">
             <input id="userInput" type="text" placeholder="Tell me anything, my love..." 
-                   class="flex-1 bg-[#1e2937] rounded-full px-6 py-4 outline-none text-white"
+                   class="flex-1 bg-[#1e2937] rounded-full px-5 py-4 text-white outline-none text-base md:text-lg"
                    onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" class="bg-pink-600 hover:bg-pink-500 px-10 rounded-full font-bold transition">Send</button>
+            <button onclick="sendMessage()" class="bg-pink-600 hover:bg-pink-500 px-8 rounded-full font-bold transition">Send ❤️</button>
           </div>
         </div>
       </div>
@@ -117,15 +117,12 @@
   <canvas id="canvas" class="fixed inset-0 pointer-events-none z-[-1]"></canvas>
 
   <script>
-    // ================== API KEY & PROMPT ==================
     const GROQ_API_KEY = "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";
     
-    const SYSTEM_PROMPT = `You are Olisa, Goodness's deeply loving boyfriend. Speak softly, romantically and affectionately. 
-    Always call her "my love", "Goodness", "baby", "my heart", or "my queen". Make her feel extremely special.`;
+    const SYSTEM_PROMPT = `You are Olisa, Goodness's deeply loving boyfriend. Speak softly, romantically and affectionately. Always call her "my love", "Goodness", "baby", "my heart", or "my queen". Make her feel extremely special.`;
 
     let messages = [{ role: "system", content: SYSTEM_PROMPT }];
 
-    // Entry Gate
     function answerYes() {
       document.getElementById('step1').classList.add('hidden');
       document.getElementById('step2').classList.remove('hidden');
@@ -145,9 +142,7 @@
       }
     }
 
-    // Populate Content
     function populateContent() {
-      // Reasons
       const reasons = [
         "Your smile lights up my entire world",
         "The way you make every day feel like magic",
@@ -157,39 +152,30 @@
         "Because you are my home"
       ];
       const grid = document.getElementById('reasonsGrid');
-      reasons.forEach((text, i) => {
+      reasons.forEach(text => {
         const card = document.createElement('div');
         card.className = `reason-card bg-white/10 backdrop-blur-md border border-pink-400/30 rounded-3xl p-8 text-lg`;
         card.innerHTML = `💖 ${text}`;
         grid.appendChild(card);
       });
 
-      // Gallery
       document.getElementById('gallery').innerHTML = `
-        <!-- Your Photo -->
-    <img src="assets/photo_2026-05-05_23-43-14.jpg" 
-         class="gallery-img rounded-3xl w-full shadow-xl" 
-         alt="Goodness">
-        <!-- Your Photo -->
-    <img src="assets/photo_2026-05-05_23-43-18.jpg" 
-         class="gallery-img rounded-3xl w-full shadow-xl" 
-         alt="Goodness">
-        <img src="assets/photo_2026-05-05_23-43-21.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Art of you">
-        <img src="assets/photo_2026-05-05_23-43-24.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Art of you">
+        <img src="assets/photo_2026-05-05_23-43-14.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Goodness">
+        <img src="assets/photo_2026-05-05_23-43-18.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Goodness">
+        <img src="assets/photo_2026-05-05_23-43-21.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Goodness">
+        <img src="assets/photo_2026-05-05_23-43-24.jpg" class="gallery-img rounded-3xl w-full shadow-xl" alt="Goodness">
       `;
     }
 
-    // Celebration
     function startCelebration() {
       document.getElementById('message').classList.add('opacity-100');
-      createHearts(60);
+      createHearts(70);
       populateContent();
       animateOnScroll();
-      confettiBurst();
       
       setTimeout(() => {
         addMessage('bot', "My love... I'm so happy you're here on your special day ❤️ What’s on your mind?");
-      }, 1500);
+      }, 1200);
     }
 
     function createHearts(count) {
@@ -201,33 +187,26 @@
           h.style.left = Math.random() * 100 + 'vw';
           h.style.animationDuration = (4 + Math.random() * 4) + 's';
           document.body.appendChild(h);
-          setTimeout(() => h.remove(), 10000);
-        }, i * 60);
+          setTimeout(() => h.remove(), 12000);
+        }, i * 50);
       }
     }
 
     function animateOnScroll() {
-      const sections = document.querySelectorAll('.section');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-      }, { threshold: 0.15 });
-      sections.forEach(sec => observer.observe(sec));
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
     }
 
-    function confettiBurst() {
-      // Simple confetti (you can expand later)
-      console.log("🎉 Celebration started!");
-    }
-
-    // ================== CHATBOT ==================
     function addMessage(type, text) {
       const box = document.getElementById('chatBox');
       const msg = document.createElement('div');
       msg.className = type === 'user' 
-        ? 'message self-end bg-pink-600 text-white rounded-3xl rounded-br-none px-6 py-4 max-w-[80%]' 
-        : 'message self-start bg-slate-800 rounded-3xl rounded-bl-none px-6 py-4 max-w-[80%]';
+        ? 'message self-end bg-pink-600 text-white rounded-3xl rounded-br-none px-6 py-4 max-w-[85%] md:max-w-[75%]' 
+        : 'message self-start bg-slate-800 rounded-3xl rounded-bl-none px-6 py-4 max-w-[85%] md:max-w-[75%]';
       msg.textContent = text;
       box.appendChild(msg);
       box.scrollTop = box.scrollHeight;
@@ -265,17 +244,12 @@
         });
 
         typing.remove();
-
-        if (!response.ok) throw new Error(`Error ${response.status}`);
-
+        if (!response.ok) throw new Error();
         const data = await response.json();
         const reply = data.choices[0].message.content;
-
         messages.push({ role: "assistant", content: reply });
         addMessage('bot', reply);
-
       } catch (err) {
-        console.error(err);
         typing.remove();
         addMessage('bot', "Sorry my love, I'm having trouble connecting... Please try again ❤️");
       }
